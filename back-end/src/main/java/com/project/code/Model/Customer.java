@@ -1,12 +1,22 @@
 package com.project.code.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
+
+import java.util.List;
+
 public class Customer {
 
 // 1. Add 'id' field: 
 //    - Type: private long 
 //    - It should be auto-incremented.
 //    - Use @Id to mark it as the primary key and @GeneratedValue(strategy = GenerationType.IDENTITY) to auto-increment it.
+
 
 // 2. Add 'name' field:
 //    - Type: private String
@@ -17,6 +27,7 @@ public class Customer {
 // 3. Add 'email' field:
 //    - Type: private String
 //    - This field cannot be empty, use the @NotNull annotation to enforce this rule.
+
 
     // Example: @NotNull(message = "Email cannot be null")
 
@@ -44,6 +55,71 @@ public class Customer {
 // 7. Ensure to use proper annotations and validate constraints:
 //    - Use @NotNull for fields that cannot be empty like 'name', 'email', and 'phone'.
 //    - Make sure you add the correct annotations for entity mapping and relationship management like @Entity, @Id, @GeneratedValue, @OneToMany, and @JsonManagedReference.
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private long id;
 
+    @NotNull(message = "Name cannot be null")
+    private String name;
+
+    @NotNull(message="Email cannot be null")
+    private String email;
+    @NotNull(message = "Phone cannot be empty")
+    private String phone;
+
+    @OneToMany(mappedBy = "customer")
+    @JsonManagedReference
+    private List<OrderDetails> orders;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public List<OrderDetails> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<OrderDetails> orders) {
+        this.orders = orders;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", orders=" + orders +
+                '}';
+    }
 }
 
