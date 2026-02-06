@@ -1,8 +1,22 @@
 package com.project.code.Model;
 
+import jakarta.persistence.*;
 
+@Entity
 public class Product {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
+    private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 // 1. Add 'id' field:
 //    - Type: private long 
 //    - This field will be auto-incremented.

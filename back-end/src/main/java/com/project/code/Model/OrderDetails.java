@@ -1,6 +1,13 @@
 package com.project.code.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Entity
 public class OrderDetails {
 
 // 1. Add 'id' field:
@@ -44,5 +51,80 @@ public class OrderDetails {
 
 // 9. Add Getters and Setters:
 //    - Add getter and setter methods for all fields (id, customer, store, totalPrice, date, orderItems).
-  
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    @JsonManagedReference("order-customer")
+    private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "store_id")
+    @JsonBackReference("order-store")
+    private Store store;
+    private double totalPrice;
+    private LocalDateTime date;
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+    @JsonManagedReference("order_items-order")
+    private List<OrderItem> orderItems;
+
+    public OrderDetails(){}
+
+    public OrderDetails(Customer customer, Store store, double totalPrice, LocalDateTime date, List<OrderItem> orderItems) {
+        this.customer = customer;
+        this.store = store;
+        this.orderItems = orderItems;
+        this.date = date;
+        this.totalPrice=totalPrice;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
 }

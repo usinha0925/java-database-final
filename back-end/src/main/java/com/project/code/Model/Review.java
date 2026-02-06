@@ -1,5 +1,11 @@
 package com.project.code.Model;
 
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "reviews")
 public class Review {
 
 // 1. Add 'customerId' field:
@@ -42,6 +48,80 @@ public class Review {
 
 // 10. Add Getters and Setters:
 //    - Add getter and setter methods for all fields (customerId, productId, storeId, rating, comment).
-  
 
+    @Id
+    private String id;
+    @NotNull(message="Customer cannot be null")
+    private long customerId;
+    @NotNull(message = "Product cannot be null")
+    private long productId;
+    @NotNull (message="Store cannot be null")
+    private long storeId;
+    @NotNull(message = "Rating cannot be null")
+    @Max(value=5)
+    private int rating;
+    private String comment;
+
+    public Review(long customerId, long productId, long storeId, int rating) {
+        this.customerId = customerId;
+        this.productId = productId;
+        this.storeId = storeId;
+        this.rating = rating;
+    }
+
+    public Review(long customerId, long productId, long storeId, int rating, String comment) {
+        this.customerId = customerId;
+        this.productId = productId;
+        this.storeId = storeId;
+        this.rating = rating;
+        this.comment = comment;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(long customerId) {
+        this.customerId = customerId;
+    }
+
+    public long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(long productId) {
+        this.productId = productId;
+    }
+
+    public long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(long storeId) {
+        this.storeId = storeId;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 }

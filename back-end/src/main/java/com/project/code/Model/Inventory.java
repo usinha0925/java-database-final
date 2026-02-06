@@ -1,6 +1,9 @@
 package com.project.code.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+@Entity
 public class Inventory {
    // 1. Add 'id' field:
 //    - Type: private long 
@@ -45,5 +48,58 @@ public class Inventory {
 //    - Example: public Store getStore(), public void setStore(Store store)
 //    - Example: public Integer getStockLevel(), public void setStockLevel(Integer stockLevel)
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    @JsonBackReference("inventory-product")
+    private Product product;
+    @ManyToOne
+    @JoinColumn(name="store_id")
+    @JsonBackReference("inventory-store")
+    private Store store;
+    private int stockLevel;
+
+    public Inventory(Product product, Store store, int stockLevel) {
+        this.product = product;
+        this.store = store;
+        this.stockLevel = stockLevel;
+    }
+    public Inventory(){
+
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
+
+    public int getStockLevel() {
+        return stockLevel;
+    }
+
+    public void setStockLevel(int stockLevel) {
+        this.stockLevel = stockLevel;
+    }
 }
 

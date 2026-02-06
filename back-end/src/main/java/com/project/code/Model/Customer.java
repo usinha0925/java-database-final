@@ -2,14 +2,12 @@ package com.project.code.Model;
 
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
-
+@Entity
 public class Customer {
 
 // 1. Add 'id' field: 
@@ -63,12 +61,14 @@ public class Customer {
     private String name;
 
     @NotNull(message="Email cannot be null")
+    @NotBlank(message="Email cannot be blank")
     private String email;
+    @NotBlank(message="Phone cannot be blank")
     @NotNull(message = "Phone cannot be empty")
     private String phone;
 
-    @OneToMany(mappedBy = "customer")
-    @JsonManagedReference
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    @JsonManagedReference("order-customer")
     private List<OrderDetails> orders;
 
     public long getId() {
