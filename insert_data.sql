@@ -1,5 +1,3 @@
-use inventory;
-
 INSERT INTO product (name, category, price, sku)
 VALUES
 ('Galaxy S21', 'Mobile', 799.99, 'SKU001'),
@@ -984,6 +982,5 @@ INSERT INTO order_item (order_id, product_id, quantity, price) VALUES (99, 50, 3
 -- Order Item 100
 INSERT INTO order_item (order_id, product_id, quantity, price) VALUES (100, 50, 2, 59.99);
 INSERT INTO order_item (order_id, product_id, quantity, price) VALUES (100, 1, 1, 79.99);
-
 
 

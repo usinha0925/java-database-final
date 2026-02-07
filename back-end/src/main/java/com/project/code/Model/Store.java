@@ -52,7 +52,7 @@ public class Store {
 
     @OneToMany(mappedBy = "store")
     @JsonManagedReference("inventory-store")
-    private List<Inventory> inventoryList;
+    private List<Inventory> inventories;
 
     public Store(String address, String name) {
         this.address = address;
@@ -86,12 +86,12 @@ public class Store {
         this.address = address;
     }
 
-    public List<Inventory> getInventoryList() {
-        return inventoryList;
+    public List<Inventory> getInventories() {
+        return inventories;
     }
 
-    public void setInventoryList(List<Inventory> inventoryList) {
-        this.inventoryList = inventoryList;
+    public void setInventories(List<Inventory> inventories) {
+        this.inventories = inventories;
     }
 }
 
